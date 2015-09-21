@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjVerify", "ProjVerify\Pr
 		{182538BA-FBBC-4411-B6A7-A9DDBB0B7998} = {182538BA-FBBC-4411-B6A7-A9DDBB0B7998}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQL_Object_Generator", "SQL_Object_Generator\SQL_Object_Generator.csproj", "{DF1B12C4-0F8F-4E8E-9CDB-1BE2C9522170}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{4F7821E0-A328-47C1-839C-0BFB7D77A643}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F7821E0-A328-47C1-839C-0BFB7D77A643}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F7821E0-A328-47C1-839C-0BFB7D77A643}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF1B12C4-0F8F-4E8E-9CDB-1BE2C9522170}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF1B12C4-0F8F-4E8E-9CDB-1BE2C9522170}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF1B12C4-0F8F-4E8E-9CDB-1BE2C9522170}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF1B12C4-0F8F-4E8E-9CDB-1BE2C9522170}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
