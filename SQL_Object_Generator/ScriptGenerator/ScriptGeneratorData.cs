@@ -92,7 +92,7 @@ namespace BC.ScriptGenerator
 
                     bool hasPermissions = true;
                     StringBuilder sb = new StringBuilder();
-                    foreach (var permission in obj)
+                    foreach (var permission in obj.OrderBy(x => x.PermissionType).ThenBy(x => x.PermissionName).ThenBy(x => x.GranteeName))
                     {
                         if (permission.PermissionType == null)
                         {
