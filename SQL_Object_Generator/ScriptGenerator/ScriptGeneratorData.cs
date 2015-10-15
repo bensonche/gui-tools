@@ -105,7 +105,7 @@ namespace BC.ScriptGenerator
                             permission.PermissionName,
                             obj.Key.Schema,
                             obj.Key.Name,
-                            permission.Name));
+                            permission.GranteeName));
                     }
                     sb.AppendLine("GO");
 

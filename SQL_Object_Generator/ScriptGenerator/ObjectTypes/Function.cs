@@ -40,7 +40,7 @@ namespace BC.ScriptGenerator.ObjectTypes
                             on a.schema_id = c.schema_id
                         left join sys.database_permissions per
                             on a.object_id = per.major_id
-                        inner join sys.database_principals pri
+                        left join sys.database_principals pri
                             on per.grantee_principal_id = pri.principal_id
                     where a.type in (N'FN', N'IF', N'TF', N'FS', N'FT')";
             }

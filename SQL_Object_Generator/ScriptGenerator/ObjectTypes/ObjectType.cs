@@ -14,6 +14,7 @@ namespace BC.ScriptGenerator
         abstract public string CountQuery { get; }
         abstract public string DefinitionQuery { get; }
         abstract public string FileBody { get; }
+        public bool IncludeSchemaInFilename = true;
 
         public int Count;
 

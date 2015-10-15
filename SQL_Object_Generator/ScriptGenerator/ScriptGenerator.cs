@@ -87,7 +87,11 @@ namespace BC.ScriptGenerator
             {
                 type.Count--;
 
-                string filename = string.Format("{0}.{1}.sql", definition.Schema, definition.Name);
+                string filename;
+                if (type.IncludeSchemaInFilename)
+                    filename = string.Format("{0}.{1}.sql", definition.Schema, definition.Name);
+                else
+                    filename = string.Format("{0}.sql", definition.Name);
 
                 FileInfo f = new FileInfo(Path.Combine(d.FullName, filename));
 

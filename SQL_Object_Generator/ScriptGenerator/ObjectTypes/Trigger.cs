@@ -10,6 +10,11 @@ namespace BC.ScriptGenerator.ObjectTypes
     {
         public override string Name { get { return "triggers"; } }
 
+        public Trigger()
+        {
+            IncludeSchemaInFilename = false;
+        }
+
         public override string CountQuery
         {
             get
@@ -28,7 +33,7 @@ namespace BC.ScriptGenerator.ObjectTypes
                     select
                         a.name,
                         b.definition,
-                        c.name as [schema],
+                        d.name as [schema],
                         null as PermissionType,
                         null as PermissionName,
                         null as GranteeName
