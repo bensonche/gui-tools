@@ -1,0 +1,1478 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DOC_METADATA">
+          <Key>
+            <PropertyRef Name="DOC_METADATA_ID" />
+          </Key>
+          <Property Name="DOC_METADATA_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DOC_ID" Type="int" Nullable="false" />
+          <Property Name="TITLE" Type="varchar" MaxLength="250" />
+          <Property Name="FILE_NAME" Type="varchar" MaxLength="250" />
+          <Property Name="DOC_UPD_DATE" Type="datetime" />
+          <Property Name="DOC_MIME_TYPE" Type="varchar" MaxLength="50" />
+          <Property Name="DOC_EXTENSION" Type="varchar" MaxLength="10" />
+          <Property Name="APP_NAME" Type="varchar" MaxLength="50" />
+          <Property Name="ins_user" Type="varchar" MaxLength="50" />
+          <Property Name="ins_date" Type="datetime" />
+          <Property Name="upd_user" Type="varchar" MaxLength="50" />
+          <Property Name="upd_date" Type="datetime" />
+          <Property Name="DocumentDeleted" Type="datetime" />
+          <Property Name="docTypeCode" Type="varchar" MaxLength="50" />
+          <Property Name="repository_type" Type="int" />
+          <Property Name="repository_id" Type="varchar" MaxLength="255" />
+          <Property Name="version_count" Type="int" />
+          <Property Name="ItemFileId" Type="int" />
+          <Property Name="VersionNumber" Type="int" />
+          <Property Name="IsFinal" Type="bit" />
+          <Property Name="Notes" Type="varchar" MaxLength="2000" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'RDI_Production.dbo.DOC_MIME_TYPES' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="DOC_MIME_TYPES">
+          <Property Name="DOC_TYPE" Type="varchar" MaxLength="50" />
+          <Property Name="MIME_TYPE" Type="varchar" MaxLength="50" />
+          <Property Name="EXTENSION" Type="varchar" MaxLength="10" />
+          <Property Name="ins_user" Type="varchar" MaxLength="50" />
+          <Property Name="ins_date" Type="datetime" />
+        </EntityType>-->
+        <EntityType Name="DOCS">
+          <Key>
+            <PropertyRef Name="DOC_ID" />
+          </Key>
+          <Property Name="DOC_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DOC" Type="varbinary(max)" />
+          <Property Name="ins_user" Type="varchar" MaxLength="50" />
+          <Property Name="ins_date" Type="datetime" />
+          <Property Name="upd_user" Type="varchar" MaxLength="50" />
+          <Property Name="upd_date" Type="datetime" />
+          <Property Name="parent_id" Type="int" />
+        </EntityType>
+        <EntityType Name="ItemFile">
+          <Key>
+            <PropertyRef Name="ItemFileId" />
+          </Key>
+          <Property Name="ItemFileId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RDIItemId" Type="int" />
+          <Property Name="DocID" Type="int" />
+          <Property Name="ins_user" Type="varchar" MaxLength="50" />
+          <Property Name="ins_date" Type="datetime" />
+          <Property Name="upd_user" Type="varchar" MaxLength="50" />
+          <Property Name="upd_date" Type="datetime" />
+          <Property Name="DocCategory" Type="int" />
+          <Property Name="DocNotes" Type="varchar" MaxLength="2000" />
+          <Property Name="ItemName" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="ItemPriority">
+          <Key>
+            <PropertyRef Name="ItemPriorityId" />
+          </Key>
+          <Property Name="ItemPriorityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemPriority" Type="varchar" MaxLength="50" />
+          <Property Name="ins_user" Type="varchar" MaxLength="50" />
+          <Property Name="ins_date" Type="datetime" />
+          <Property Name="upd_user" Type="varchar" MaxLength="50" />
+          <Property Name="upd_date" Type="datetime" />
+          <Property Name="ApplicationId" Type="int" Nullable="false" />
+          <Property Name="SortOrder" Type="int" />
+        </EntityType>
+        <EntityType Name="ItemStatus">
+          <Key>
+            <PropertyRef Name="ItemStatusId" />
+          </Key>
+          <Property Name="ItemStatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemStatus" Type="varchar" MaxLength="50" />
+          <Property Name="ins_user" Type="varchar" MaxLength="50" />
+          <Property Name="ins_date" Type="datetime" />
+          <Property Name="upd_user" Type="varchar" MaxLength="50" />
+          <Property Name="upd_date" Type="datetime" />
+          <Property Name="ApplicationId" Type="int" Nullable="false" />
+          <Property Name="SortOrder" Type="int" Nullable="false" />
+          <Property Name="StatusDesc" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="ItemStatusModule">
+          <Key>
+            <PropertyRef Name="ItemStatusModuleId" />
+          </Key>
+          <Property Name="ItemStatusModuleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ModuleName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ItemStatusId" Type="int" Nullable="false" />
+          <Property Name="ins_user" Type="varchar" MaxLength="50" />
+          <Property Name="ins_date" Type="datetime" />
+          <Property Name="upd_user" Type="varchar" MaxLength="50" />
+          <Property Name="upd_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ItemStatusNextValid">
+          <Key>
+            <PropertyRef Name="ItemStatusId" />
+            <PropertyRef Name="ItemStatusNextValidId" />
+          </Key>
+          <Property Name="ItemStatusId" Type="int" Nullable="false" />
+          <Property Name="ItemStatusNextValidId" Type="int" Nullable="false" />
+          <Property Name="ins_user" Type="varchar" MaxLength="50" />
+          <Property Name="ins_date" Type="datetime" />
+          <Property Name="upd_user" Type="varchar" MaxLength="50" />
+          <Property Name="upd_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ItemSubscriber">
+          <Key>
+            <PropertyRef Name="ItemSubscriberId" />
+          </Key>
+          <Property Name="ItemSubscriberId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RDIItemId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="ins_user" Type="varchar" MaxLength="50" />
+          <Property Name="ins_date" Type="datetime" />
+          <Property Name="upd_user" Type="varchar" MaxLength="50" />
+          <Property Name="upd_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ItemType">
+          <Key>
+            <PropertyRef Name="ItemTypeId" />
+          </Key>
+          <Property Name="ItemTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemType" Type="varchar" MaxLength="50" />
+          <Property Name="ins_user" Type="varchar" MaxLength="50" />
+          <Property Name="ins_date" Type="datetime" />
+          <Property Name="upd_user" Type="varchar" MaxLength="50" />
+          <Property Name="upd_date" Type="datetime" />
+          <Property Name="ApplicationId" Type="int" Nullable="false" />
+          <Property Name="TypeDesc" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="ItemTypeModule">
+          <Key>
+            <PropertyRef Name="ItemTypeModuleId" />
+          </Key>
+          <Property Name="ItemTypeModuleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ModuleName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ItemTypeId" Type="int" Nullable="false" />
+          <Property Name="ins_user" Type="varchar" MaxLength="50" />
+          <Property Name="ins_date" Type="datetime" />
+          <Property Name="upd_user" Type="varchar" MaxLength="50" />
+          <Property Name="upd_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="RDIItem">
+          <Key>
+            <PropertyRef Name="RDIItemId" />
+          </Key>
+          <Property Name="RDIItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="7000" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ItemTypeId" Type="int" />
+          <Property Name="CLIENT_ID" Type="int" />
+          <Property Name="PROJECT_NO" Type="int" />
+          <Property Name="PHASE" Type="int" />
+          <Property Name="TASK" Type="int" />
+          <Property Name="PriorityId" Type="int" />
+          <Property Name="ins_user" Type="varchar" MaxLength="50" />
+          <Property Name="ins_date" Type="datetime" />
+          <Property Name="upd_user" Type="varchar" MaxLength="50" />
+          <Property Name="upd_date" Type="datetime" />
+          <Property Name="ParentRDIItemId" Type="int" />
+          <Property Name="DueDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="AssignedTo" Type="int" />
+          <Property Name="Comments" Type="varchar" MaxLength="6000" />
+          <Property Name="HoursEstimated" Type="int" />
+          <Property Name="FeatureBranch" Type="varchar" MaxLength="255" />
+          <Property Name="ChangedDescription" Type="varchar" MaxLength="7000" />
+          <Property Name="RecurringRDIItemId" Type="int" />
+          <Property Name="Approved" Type="bit" />
+          <Property Name="ApprovedBy" Type="int" />
+          <Property Name="IsRecurring" Type="bit" Nullable="false" />
+          <Property Name="LastCreated" Type="date" />
+          <Property Name="NextCreation" Type="date" />
+          <Property Name="ScheduleFieldName" Type="varchar" MaxLength="50" />
+          <Property Name="ScheduleCode" Type="varchar" MaxLength="50" />
+          <Property Name="ScheduleDetail" Type="varchar" MaxLength="100" />
+          <Property Name="ScheduleStartDate" Type="date" />
+          <Property Name="ScheduleEndDate" Type="date" />
+          <Property Name="SchedulePause" Type="bit" />
+        </EntityType>
+        <EntityType Name="RDIItemGroup">
+          <Key>
+            <PropertyRef Name="GroupID" />
+          </Key>
+          <Property Name="GroupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ins_user" Type="varchar" MaxLength="50" />
+          <Property Name="ins_date" Type="datetime" />
+          <Property Name="upd_user" Type="varchar" MaxLength="50" />
+          <Property Name="upd_date" Type="datetime" />
+          <Property Name="AppID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RDIItemGroupMembers">
+          <Key>
+            <PropertyRef Name="MemberID" />
+          </Key>
+          <Property Name="MemberID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="ins_user" Type="varchar" MaxLength="50" />
+          <Property Name="ins_date" Type="datetime" />
+          <Property Name="upd_user" Type="varchar" MaxLength="50" />
+          <Property Name="upd_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="RDIItemHistory">
+          <Key>
+            <PropertyRef Name="RDIItemHistoryId" />
+          </Key>
+          <Property Name="RDIItemHistoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RDIItemId" Type="int" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="255" />
+          <Property Name="Description" Type="varchar" MaxLength="7000" />
+          <Property Name="Comments" Type="varchar" MaxLength="6000" />
+          <Property Name="StatusId" Type="int" />
+          <Property Name="PriorityId" Type="int" />
+          <Property Name="ItemTypeId" Type="int" />
+          <Property Name="ParentRDIItemId" Type="int" />
+          <Property Name="AssignedTo" Type="int" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="ChangeDate" Type="datetime" />
+          <Property Name="DueDate" Type="datetime" />
+          <Property Name="UpdateNote" Type="varchar(max)" />
+          <Property Name="ins_user" Type="varchar" MaxLength="50" />
+          <Property Name="ins_date" Type="datetime" />
+          <Property Name="upd_user" Type="varchar" MaxLength="50" />
+          <Property Name="upd_date" Type="datetime" />
+          <Property Name="HoursEstimated" Type="int" />
+          <Property Name="CLIENT_ID" Type="int" />
+          <Property Name="PROJECT_NO" Type="int" />
+          <Property Name="PHASE" Type="int" />
+          <Property Name="TASK" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="FeatureBranch" Type="varchar" MaxLength="255" />
+          <Property Name="ChangedDescription" Type="varchar" MaxLength="7000" />
+          <Property Name="Approved" Type="bit" />
+          <Property Name="ApprovedBy" Type="int" />
+          <Property Name="RecurringRDIItemId" Type="int" />
+          <Property Name="LastCreated" Type="date" />
+          <Property Name="NextCreation" Type="date" />
+          <Property Name="IsRecurring" Type="bit" />
+          <Property Name="ScheduleFieldName" Type="varchar" MaxLength="50" />
+          <Property Name="ScheduleCode" Type="varchar" MaxLength="50" />
+          <Property Name="ScheduleDetail" Type="varchar" MaxLength="100" />
+          <Property Name="ScheduleStartDate" Type="date" />
+          <Property Name="ScheduleEndDate" Type="date" />
+          <Property Name="SchedulePause" Type="bit" />
+        </EntityType>
+        <EntityType Name="RDIItemPageTitle">
+          <Key>
+            <PropertyRef Name="RDIItemPageTitleId" />
+          </Key>
+          <Property Name="RDIItemPageTitleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RDIItemId" Type="int" Nullable="false" />
+          <Property Name="IntranetSecurityKey" Type="int" Nullable="false" />
+          <Property Name="ins_user" Type="varchar" MaxLength="50" />
+          <Property Name="ins_date" Type="datetime" />
+          <Property Name="upd_user" Type="varchar" MaxLength="50" />
+          <Property Name="upd_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="RDIItemTag">
+          <Key>
+            <PropertyRef Name="RDIItemTagId" />
+          </Key>
+          <Property Name="RDIItemTagId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TagId" Type="int" Nullable="false" />
+          <Property Name="RDIItemId" Type="int" Nullable="false" />
+          <Property Name="Note" Type="varchar" MaxLength="250" />
+          <Property Name="ins_user" Type="varchar" MaxLength="50" />
+          <Property Name="ins_date" Type="datetime" />
+          <Property Name="upd_user" Type="varchar" MaxLength="50" />
+          <Property Name="upd_date" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RDI_Production.dbo.AllUsers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="AllUsers">
+          <Key>
+            <PropertyRef Name="USERID" />
+            <PropertyRef Name="TYPE" />
+            <PropertyRef Name="IsDisabled" />
+          </Key>
+          <Property Name="USERID" Type="int" Nullable="false" />
+          <Property Name="USERNAME" Type="varchar" MaxLength="50" />
+          <Property Name="LASTNAME" Type="varchar" MaxLength="50" />
+          <Property Name="FIRSTNAME" Type="varchar" MaxLength="50" />
+          <Property Name="FULLNAME" Type="varchar" MaxLength="102" />
+          <Property Name="FULLNAME2" Type="varchar" MaxLength="101" />
+          <Property Name="TYPE" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="50" />
+          <Property Name="EMPID" Type="int" />
+          <Property Name="CONTACT_KEY" Type="int" />
+          <Property Name="CLIENT_ID" Type="int" />
+          <Property Name="IsDisabled" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DOC_METADATA_DOCS">
+          <End Role="DOCS" Type="Self.DOCS" Multiplicity="1" />
+          <End Role="DOC_METADATA" Type="Self.DOC_METADATA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DOCS">
+              <PropertyRef Name="DOC_ID" />
+            </Principal>
+            <Dependent Role="DOC_METADATA">
+              <PropertyRef Name="DOC_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DocMetadata_ref_ItemFile">
+          <End Role="ItemFile" Type="Self.ItemFile" Multiplicity="0..1" />
+          <End Role="DOC_METADATA" Type="Self.DOC_METADATA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemFile">
+              <PropertyRef Name="ItemFileId" />
+            </Principal>
+            <Dependent Role="DOC_METADATA">
+              <PropertyRef Name="ItemFileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_DOCS_DOC_METADATA' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_DOCS_DOC_METADATA" />-->
+        <Association Name="FK_GroupID">
+          <End Role="RDIItemGroup" Type="Self.RDIItemGroup" Multiplicity="1" />
+          <End Role="RDIItemGroupMembers" Type="Self.RDIItemGroupMembers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RDIItemGroup">
+              <PropertyRef Name="GroupID" />
+            </Principal>
+            <Dependent Role="RDIItemGroupMembers">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IT_Files_IssueTracking_Issues">
+          <End Role="RDIItem" Type="Self.RDIItem" Multiplicity="0..1" />
+          <End Role="ItemFile" Type="Self.ItemFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RDIItem">
+              <PropertyRef Name="RDIItemId" />
+            </Principal>
+            <Dependent Role="ItemFile">
+              <PropertyRef Name="RDIItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemFile_DOCS">
+          <End Role="DOCS" Type="Self.DOCS" Multiplicity="0..1" />
+          <End Role="ItemFile" Type="Self.ItemFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DOCS">
+              <PropertyRef Name="DOC_ID" />
+            </Principal>
+            <Dependent Role="ItemFile">
+              <PropertyRef Name="DocID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemStatusNextValid_ItemStatus">
+          <End Role="ItemStatus" Type="Self.ItemStatus" Multiplicity="1" />
+          <End Role="ItemStatusNextValid" Type="Self.ItemStatusNextValid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemStatus">
+              <PropertyRef Name="ItemStatusId" />
+            </Principal>
+            <Dependent Role="ItemStatusNextValid">
+              <PropertyRef Name="ItemStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemStatusNextValid_ItemStatus_NextValid">
+          <End Role="ItemStatus" Type="Self.ItemStatus" Multiplicity="1" />
+          <End Role="ItemStatusNextValid" Type="Self.ItemStatusNextValid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemStatus">
+              <PropertyRef Name="ItemStatusId" />
+            </Principal>
+            <Dependent Role="ItemStatusNextValid">
+              <PropertyRef Name="ItemStatusNextValidId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemSubscriber_RDIItem">
+          <End Role="RDIItem" Type="Self.RDIItem" Multiplicity="1" />
+          <End Role="ItemSubscriber" Type="Self.ItemSubscriber" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RDIItem">
+              <PropertyRef Name="RDIItemId" />
+            </Principal>
+            <Dependent Role="ItemSubscriber">
+              <PropertyRef Name="RDIItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RDIItem_IssueTracking_Priority">
+          <End Role="ItemPriority" Type="Self.ItemPriority" Multiplicity="0..1" />
+          <End Role="RDIItem" Type="Self.RDIItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemPriority">
+              <PropertyRef Name="ItemPriorityId" />
+            </Principal>
+            <Dependent Role="RDIItem">
+              <PropertyRef Name="PriorityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RDIItem_IssueTracking_Status">
+          <End Role="ItemStatus" Type="Self.ItemStatus" Multiplicity="1" />
+          <End Role="RDIItem" Type="Self.RDIItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemStatus">
+              <PropertyRef Name="ItemStatusId" />
+            </Principal>
+            <Dependent Role="RDIItem">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RDIItem_IssueTracking_Type">
+          <End Role="ItemType" Type="Self.ItemType" Multiplicity="0..1" />
+          <End Role="RDIItem" Type="Self.RDIItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemType">
+              <PropertyRef Name="ItemTypeId" />
+            </Principal>
+            <Dependent Role="RDIItem">
+              <PropertyRef Name="ItemTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RDIItemHistory_RDIItem">
+          <End Role="RDIItem" Type="Self.RDIItem" Multiplicity="1" />
+          <End Role="RDIItemHistory" Type="Self.RDIItemHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RDIItem">
+              <PropertyRef Name="RDIItemId" />
+            </Principal>
+            <Dependent Role="RDIItemHistory">
+              <PropertyRef Name="RDIItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RDIItemPageTitle_RDIItem">
+          <End Role="RDIItem" Type="Self.RDIItem" Multiplicity="1" />
+          <End Role="RDIItemPageTitle" Type="Self.RDIItemPageTitle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RDIItem">
+              <PropertyRef Name="RDIItemId" />
+            </Principal>
+            <Dependent Role="RDIItemPageTitle">
+              <PropertyRef Name="RDIItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RDIItemTag_RDIItem">
+          <End Role="RDIItem" Type="Self.RDIItem" Multiplicity="1" />
+          <End Role="RDIItemTag" Type="Self.RDIItemTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RDIItem">
+              <PropertyRef Name="RDIItemId" />
+            </Principal>
+            <Dependent Role="RDIItemTag">
+              <PropertyRef Name="RDIItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DbModelStoreContainer">
+          <EntitySet Name="DOC_METADATA" EntityType="Self.DOC_METADATA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DOCS" EntityType="Self.DOCS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemFile" EntityType="Self.ItemFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemPriority" EntityType="Self.ItemPriority" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemStatus" EntityType="Self.ItemStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemStatusModule" EntityType="Self.ItemStatusModule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemStatusNextValid" EntityType="Self.ItemStatusNextValid" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemSubscriber" EntityType="Self.ItemSubscriber" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemType" EntityType="Self.ItemType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemTypeModule" EntityType="Self.ItemTypeModule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RDIItem" EntityType="Self.RDIItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RDIItemGroup" EntityType="Self.RDIItemGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RDIItemGroupMembers" EntityType="Self.RDIItemGroupMembers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RDIItemHistory" EntityType="Self.RDIItemHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RDIItemPageTitle" EntityType="Self.RDIItemPageTitle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RDIItemTag" EntityType="Self.RDIItemTag" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AllUsers" EntityType="Self.AllUsers" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [AllUsers].[USERID] AS [USERID], 
+    [AllUsers].[USERNAME] AS [USERNAME], 
+    [AllUsers].[LASTNAME] AS [LASTNAME], 
+    [AllUsers].[FIRSTNAME] AS [FIRSTNAME], 
+    [AllUsers].[FULLNAME] AS [FULLNAME], 
+    [AllUsers].[FULLNAME2] AS [FULLNAME2], 
+    [AllUsers].[TYPE] AS [TYPE], 
+    [AllUsers].[EMAIL] AS [EMAIL], 
+    [AllUsers].[EMPID] AS [EMPID], 
+    [AllUsers].[CONTACT_KEY] AS [CONTACT_KEY], 
+    [AllUsers].[CLIENT_ID] AS [CLIENT_ID], 
+    [AllUsers].[IsDisabled] AS [IsDisabled]
+    FROM [dbo].[AllUsers] AS [AllUsers]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_DOC_METADATA_DOCS" Association="Self.FK_DOC_METADATA_DOCS">
+            <End Role="DOCS" EntitySet="DOCS" />
+            <End Role="DOC_METADATA" EntitySet="DOC_METADATA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DocMetadata_ref_ItemFile" Association="Self.FK_DocMetadata_ref_ItemFile">
+            <End Role="ItemFile" EntitySet="ItemFile" />
+            <End Role="DOC_METADATA" EntitySet="DOC_METADATA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupID" Association="Self.FK_GroupID">
+            <End Role="RDIItemGroup" EntitySet="RDIItemGroup" />
+            <End Role="RDIItemGroupMembers" EntitySet="RDIItemGroupMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IT_Files_IssueTracking_Issues" Association="Self.FK_IT_Files_IssueTracking_Issues">
+            <End Role="RDIItem" EntitySet="RDIItem" />
+            <End Role="ItemFile" EntitySet="ItemFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemFile_DOCS" Association="Self.FK_ItemFile_DOCS">
+            <End Role="DOCS" EntitySet="DOCS" />
+            <End Role="ItemFile" EntitySet="ItemFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemStatusNextValid_ItemStatus" Association="Self.FK_ItemStatusNextValid_ItemStatus">
+            <End Role="ItemStatus" EntitySet="ItemStatus" />
+            <End Role="ItemStatusNextValid" EntitySet="ItemStatusNextValid" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemStatusNextValid_ItemStatus_NextValid" Association="Self.FK_ItemStatusNextValid_ItemStatus_NextValid">
+            <End Role="ItemStatus" EntitySet="ItemStatus" />
+            <End Role="ItemStatusNextValid" EntitySet="ItemStatusNextValid" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemSubscriber_RDIItem" Association="Self.FK_ItemSubscriber_RDIItem">
+            <End Role="RDIItem" EntitySet="RDIItem" />
+            <End Role="ItemSubscriber" EntitySet="ItemSubscriber" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RDIItem_IssueTracking_Priority" Association="Self.FK_RDIItem_IssueTracking_Priority">
+            <End Role="ItemPriority" EntitySet="ItemPriority" />
+            <End Role="RDIItem" EntitySet="RDIItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RDIItem_IssueTracking_Status" Association="Self.FK_RDIItem_IssueTracking_Status">
+            <End Role="ItemStatus" EntitySet="ItemStatus" />
+            <End Role="RDIItem" EntitySet="RDIItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RDIItem_IssueTracking_Type" Association="Self.FK_RDIItem_IssueTracking_Type">
+            <End Role="ItemType" EntitySet="ItemType" />
+            <End Role="RDIItem" EntitySet="RDIItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RDIItemHistory_RDIItem" Association="Self.FK_RDIItemHistory_RDIItem">
+            <End Role="RDIItem" EntitySet="RDIItem" />
+            <End Role="RDIItemHistory" EntitySet="RDIItemHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RDIItemPageTitle_RDIItem" Association="Self.FK_RDIItemPageTitle_RDIItem">
+            <End Role="RDIItem" EntitySet="RDIItem" />
+            <End Role="RDIItemPageTitle" EntitySet="RDIItemPageTitle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RDIItemTag_RDIItem" Association="Self.FK_RDIItemTag_RDIItem">
+            <End Role="RDIItem" EntitySet="RDIItem" />
+            <End Role="RDIItemTag" EntitySet="RDIItemTag" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DOC_METADATA">
+          <Key>
+            <PropertyRef Name="DOC_METADATA_ID" />
+          </Key>
+          <Property Name="DOC_METADATA_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DOC_ID" Type="Int32" Nullable="false" />
+          <Property Name="TITLE" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="FILE_NAME" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DOC_UPD_DATE" Type="DateTime" Precision="3" />
+          <Property Name="DOC_MIME_TYPE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DOC_EXTENSION" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="APP_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ins_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ins_date" Type="DateTime" Precision="3" />
+          <Property Name="upd_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="upd_date" Type="DateTime" Precision="3" />
+          <Property Name="DocumentDeleted" Type="DateTime" Precision="3" />
+          <Property Name="docTypeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="repository_type" Type="Int32" />
+          <Property Name="repository_id" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="version_count" Type="Int32" />
+          <Property Name="ItemFileId" Type="Int32" />
+          <Property Name="VersionNumber" Type="Int32" />
+          <Property Name="IsFinal" Type="Boolean" />
+          <Property Name="Notes" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DOC" Relationship="Self.FK_DOC_METADATA_DOCS" FromRole="DOC_METADATA" ToRole="DOCS" />
+          <NavigationProperty Name="ItemFile" Relationship="Self.FK_DocMetadata_ref_ItemFile" FromRole="DOC_METADATA" ToRole="ItemFile" />
+        </EntityType>
+        <EntityType Name="DOC">
+          <Key>
+            <PropertyRef Name="DOC_ID" />
+          </Key>
+          <Property Name="DOC_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DOC1" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ins_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ins_date" Type="DateTime" Precision="3" />
+          <Property Name="upd_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="upd_date" Type="DateTime" Precision="3" />
+          <Property Name="parent_id" Type="Int32" />
+          <NavigationProperty Name="DOC_METADATA" Relationship="Self.FK_DOC_METADATA_DOCS" FromRole="DOCS" ToRole="DOC_METADATA" />
+          <NavigationProperty Name="ItemFiles" Relationship="Self.FK_ItemFile_DOCS" FromRole="DOCS" ToRole="ItemFile" />
+        </EntityType>
+        <EntityType Name="ItemFile">
+          <Key>
+            <PropertyRef Name="ItemFileId" />
+          </Key>
+          <Property Name="ItemFileId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RDIItemId" Type="Int32" />
+          <Property Name="DocID" Type="Int32" />
+          <Property Name="ins_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ins_date" Type="DateTime" Precision="3" />
+          <Property Name="upd_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="upd_date" Type="DateTime" Precision="3" />
+          <Property Name="DocCategory" Type="Int32" />
+          <Property Name="DocNotes" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="ItemName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DOC_METADATA" Relationship="Self.FK_DocMetadata_ref_ItemFile" FromRole="ItemFile" ToRole="DOC_METADATA" />
+          <NavigationProperty Name="DOC" Relationship="Self.FK_ItemFile_DOCS" FromRole="ItemFile" ToRole="DOCS" />
+          <NavigationProperty Name="RDIItem" Relationship="Self.FK_IT_Files_IssueTracking_Issues" FromRole="ItemFile" ToRole="RDIItem" />
+        </EntityType>
+        <EntityType Name="ItemPriority">
+          <Key>
+            <PropertyRef Name="ItemPriorityId" />
+          </Key>
+          <Property Name="ItemPriorityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemPriority1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ins_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ins_date" Type="DateTime" Precision="3" />
+          <Property Name="upd_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="upd_date" Type="DateTime" Precision="3" />
+          <Property Name="ApplicationId" Type="Int32" Nullable="false" />
+          <Property Name="SortOrder" Type="Int32" />
+          <NavigationProperty Name="RDIItems" Relationship="Self.FK_RDIItem_IssueTracking_Priority" FromRole="ItemPriority" ToRole="RDIItem" />
+        </EntityType>
+        <EntityType Name="ItemStatu">
+          <Key>
+            <PropertyRef Name="ItemStatusId" />
+          </Key>
+          <Property Name="ItemStatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ins_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ins_date" Type="DateTime" Precision="3" />
+          <Property Name="upd_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="upd_date" Type="DateTime" Precision="3" />
+          <Property Name="ApplicationId" Type="Int32" Nullable="false" />
+          <Property Name="SortOrder" Type="Int32" Nullable="false" />
+          <Property Name="StatusDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ItemStatusNextValids" Relationship="Self.FK_ItemStatusNextValid_ItemStatus" FromRole="ItemStatus" ToRole="ItemStatusNextValid" />
+          <NavigationProperty Name="ItemStatusNextValids1" Relationship="Self.FK_ItemStatusNextValid_ItemStatus_NextValid" FromRole="ItemStatus" ToRole="ItemStatusNextValid" />
+          <NavigationProperty Name="RDIItems" Relationship="Self.FK_RDIItem_IssueTracking_Status" FromRole="ItemStatus" ToRole="RDIItem" />
+        </EntityType>
+        <EntityType Name="ItemStatusModule">
+          <Key>
+            <PropertyRef Name="ItemStatusModuleId" />
+          </Key>
+          <Property Name="ItemStatusModuleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ModuleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ItemStatusId" Type="Int32" Nullable="false" />
+          <Property Name="ins_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ins_date" Type="DateTime" Precision="3" />
+          <Property Name="upd_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="upd_date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ItemStatusNextValid">
+          <Key>
+            <PropertyRef Name="ItemStatusId" />
+            <PropertyRef Name="ItemStatusNextValidId" />
+          </Key>
+          <Property Name="ItemStatusId" Type="Int32" Nullable="false" />
+          <Property Name="ItemStatusNextValidId" Type="Int32" Nullable="false" />
+          <Property Name="ins_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ins_date" Type="DateTime" Precision="3" />
+          <Property Name="upd_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="upd_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ItemStatu" Relationship="Self.FK_ItemStatusNextValid_ItemStatus" FromRole="ItemStatusNextValid" ToRole="ItemStatus" />
+          <NavigationProperty Name="ItemStatu1" Relationship="Self.FK_ItemStatusNextValid_ItemStatus_NextValid" FromRole="ItemStatusNextValid" ToRole="ItemStatus" />
+        </EntityType>
+        <EntityType Name="ItemSubscriber">
+          <Key>
+            <PropertyRef Name="ItemSubscriberId" />
+          </Key>
+          <Property Name="ItemSubscriberId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RDIItemId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="ins_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ins_date" Type="DateTime" Precision="3" />
+          <Property Name="upd_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="upd_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="RDIItem" Relationship="Self.FK_ItemSubscriber_RDIItem" FromRole="ItemSubscriber" ToRole="RDIItem" />
+        </EntityType>
+        <EntityType Name="ItemType">
+          <Key>
+            <PropertyRef Name="ItemTypeId" />
+          </Key>
+          <Property Name="ItemTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemType1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ins_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ins_date" Type="DateTime" Precision="3" />
+          <Property Name="upd_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="upd_date" Type="DateTime" Precision="3" />
+          <Property Name="ApplicationId" Type="Int32" Nullable="false" />
+          <Property Name="TypeDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RDIItems" Relationship="Self.FK_RDIItem_IssueTracking_Type" FromRole="ItemType" ToRole="RDIItem" />
+        </EntityType>
+        <EntityType Name="ItemTypeModule">
+          <Key>
+            <PropertyRef Name="ItemTypeModuleId" />
+          </Key>
+          <Property Name="ItemTypeModuleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ModuleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ItemTypeId" Type="Int32" Nullable="false" />
+          <Property Name="ins_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ins_date" Type="DateTime" Precision="3" />
+          <Property Name="upd_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="upd_date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="RDIItem">
+          <Key>
+            <PropertyRef Name="RDIItemId" />
+          </Key>
+          <Property Name="RDIItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="7000" FixedLength="false" Unicode="false" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ItemTypeId" Type="Int32" />
+          <Property Name="CLIENT_ID" Type="Int32" />
+          <Property Name="PROJECT_NO" Type="Int32" />
+          <Property Name="PHASE" Type="Int32" />
+          <Property Name="TASK" Type="Int32" />
+          <Property Name="PriorityId" Type="Int32" />
+          <Property Name="ins_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ins_date" Type="DateTime" Precision="3" />
+          <Property Name="upd_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="upd_date" Type="DateTime" Precision="3" />
+          <Property Name="ParentRDIItemId" Type="Int32" />
+          <Property Name="DueDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="AssignedTo" Type="Int32" />
+          <Property Name="Comments" Type="String" MaxLength="6000" FixedLength="false" Unicode="false" />
+          <Property Name="HoursEstimated" Type="Int32" />
+          <Property Name="FeatureBranch" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ChangedDescription" Type="String" MaxLength="7000" FixedLength="false" Unicode="false" />
+          <Property Name="RecurringRDIItemId" Type="Int32" />
+          <Property Name="Approved" Type="Boolean" />
+          <Property Name="ApprovedBy" Type="Int32" />
+          <Property Name="IsRecurring" Type="Boolean" Nullable="false" />
+          <Property Name="LastCreated" Type="DateTime" Precision="0" />
+          <Property Name="NextCreation" Type="DateTime" Precision="0" />
+          <Property Name="ScheduleFieldName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ScheduleCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ScheduleDetail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ScheduleStartDate" Type="DateTime" Precision="0" />
+          <Property Name="ScheduleEndDate" Type="DateTime" Precision="0" />
+          <Property Name="SchedulePause" Type="Boolean" />
+          <NavigationProperty Name="ItemFiles" Relationship="Self.FK_IT_Files_IssueTracking_Issues" FromRole="RDIItem" ToRole="ItemFile" />
+          <NavigationProperty Name="ItemPriority" Relationship="Self.FK_RDIItem_IssueTracking_Priority" FromRole="RDIItem" ToRole="ItemPriority" />
+          <NavigationProperty Name="ItemStatu" Relationship="Self.FK_RDIItem_IssueTracking_Status" FromRole="RDIItem" ToRole="ItemStatus" />
+          <NavigationProperty Name="ItemSubscribers" Relationship="Self.FK_ItemSubscriber_RDIItem" FromRole="RDIItem" ToRole="ItemSubscriber" />
+          <NavigationProperty Name="ItemType" Relationship="Self.FK_RDIItem_IssueTracking_Type" FromRole="RDIItem" ToRole="ItemType" />
+          <NavigationProperty Name="RDIItemHistories" Relationship="Self.FK_RDIItemHistory_RDIItem" FromRole="RDIItem" ToRole="RDIItemHistory" />
+          <NavigationProperty Name="RDIItemPageTitles" Relationship="Self.FK_RDIItemPageTitle_RDIItem" FromRole="RDIItem" ToRole="RDIItemPageTitle" />
+          <NavigationProperty Name="RDIItemTags" Relationship="Self.FK_RDIItemTag_RDIItem" FromRole="RDIItem" ToRole="RDIItemTag" />
+        </EntityType>
+        <EntityType Name="RDIItemGroup">
+          <Key>
+            <PropertyRef Name="GroupID" />
+          </Key>
+          <Property Name="GroupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ins_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ins_date" Type="DateTime" Precision="3" />
+          <Property Name="upd_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="upd_date" Type="DateTime" Precision="3" />
+          <Property Name="AppID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="RDIItemGroupMembers" Relationship="Self.FK_GroupID" FromRole="RDIItemGroup" ToRole="RDIItemGroupMembers" />
+        </EntityType>
+        <EntityType Name="RDIItemGroupMember">
+          <Key>
+            <PropertyRef Name="MemberID" />
+          </Key>
+          <Property Name="MemberID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="ins_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ins_date" Type="DateTime" Precision="3" />
+          <Property Name="upd_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="upd_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="RDIItemGroup" Relationship="Self.FK_GroupID" FromRole="RDIItemGroupMembers" ToRole="RDIItemGroup" />
+        </EntityType>
+        <EntityType Name="RDIItemHistory">
+          <Key>
+            <PropertyRef Name="RDIItemHistoryId" />
+          </Key>
+          <Property Name="RDIItemHistoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RDIItemId" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="7000" FixedLength="false" Unicode="false" />
+          <Property Name="Comments" Type="String" MaxLength="6000" FixedLength="false" Unicode="false" />
+          <Property Name="StatusId" Type="Int32" />
+          <Property Name="PriorityId" Type="Int32" />
+          <Property Name="ItemTypeId" Type="Int32" />
+          <Property Name="ParentRDIItemId" Type="Int32" />
+          <Property Name="AssignedTo" Type="Int32" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="ChangeDate" Type="DateTime" Precision="3" />
+          <Property Name="DueDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ins_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ins_date" Type="DateTime" Precision="3" />
+          <Property Name="upd_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="upd_date" Type="DateTime" Precision="3" />
+          <Property Name="HoursEstimated" Type="Int32" />
+          <Property Name="CLIENT_ID" Type="Int32" />
+          <Property Name="PROJECT_NO" Type="Int32" />
+          <Property Name="PHASE" Type="Int32" />
+          <Property Name="TASK" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="FeatureBranch" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ChangedDescription" Type="String" MaxLength="7000" FixedLength="false" Unicode="false" />
+          <Property Name="Approved" Type="Boolean" />
+          <Property Name="ApprovedBy" Type="Int32" />
+          <Property Name="RecurringRDIItemId" Type="Int32" />
+          <Property Name="LastCreated" Type="DateTime" Precision="0" />
+          <Property Name="NextCreation" Type="DateTime" Precision="0" />
+          <Property Name="IsRecurring" Type="Boolean" />
+          <Property Name="ScheduleFieldName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ScheduleCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ScheduleDetail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ScheduleStartDate" Type="DateTime" Precision="0" />
+          <Property Name="ScheduleEndDate" Type="DateTime" Precision="0" />
+          <Property Name="SchedulePause" Type="Boolean" />
+          <NavigationProperty Name="RDIItem" Relationship="Self.FK_RDIItemHistory_RDIItem" FromRole="RDIItemHistory" ToRole="RDIItem" />
+        </EntityType>
+        <EntityType Name="RDIItemPageTitle">
+          <Key>
+            <PropertyRef Name="RDIItemPageTitleId" />
+          </Key>
+          <Property Name="RDIItemPageTitleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RDIItemId" Type="Int32" Nullable="false" />
+          <Property Name="IntranetSecurityKey" Type="Int32" Nullable="false" />
+          <Property Name="ins_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ins_date" Type="DateTime" Precision="3" />
+          <Property Name="upd_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="upd_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="RDIItem" Relationship="Self.FK_RDIItemPageTitle_RDIItem" FromRole="RDIItemPageTitle" ToRole="RDIItem" />
+        </EntityType>
+        <EntityType Name="RDIItemTag">
+          <Key>
+            <PropertyRef Name="RDIItemTagId" />
+          </Key>
+          <Property Name="RDIItemTagId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TagId" Type="Int32" Nullable="false" />
+          <Property Name="RDIItemId" Type="Int32" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ins_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ins_date" Type="DateTime" Precision="3" />
+          <Property Name="upd_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="upd_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="RDIItem" Relationship="Self.FK_RDIItemTag_RDIItem" FromRole="RDIItemTag" ToRole="RDIItem" />
+        </EntityType>
+        <EntityType Name="AllUser">
+          <Key>
+            <PropertyRef Name="USERID" />
+            <PropertyRef Name="TYPE" />
+            <PropertyRef Name="IsDisabled" />
+          </Key>
+          <Property Name="USERID" Type="Int32" Nullable="false" />
+          <Property Name="USERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LASTNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FIRSTNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FULLNAME" Type="String" MaxLength="102" FixedLength="false" Unicode="false" />
+          <Property Name="FULLNAME2" Type="String" MaxLength="101" FixedLength="false" Unicode="false" />
+          <Property Name="TYPE" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EMPID" Type="Int32" />
+          <Property Name="CONTACT_KEY" Type="Int32" />
+          <Property Name="CLIENT_ID" Type="Int32" />
+          <Property Name="IsDisabled" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DOC_METADATA_DOCS">
+          <End Role="DOCS" Type="Self.DOC" Multiplicity="1" />
+          <End Role="DOC_METADATA" Type="Self.DOC_METADATA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DOCS">
+              <PropertyRef Name="DOC_ID" />
+            </Principal>
+            <Dependent Role="DOC_METADATA">
+              <PropertyRef Name="DOC_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DocMetadata_ref_ItemFile">
+          <End Role="ItemFile" Type="Self.ItemFile" Multiplicity="0..1" />
+          <End Role="DOC_METADATA" Type="Self.DOC_METADATA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemFile">
+              <PropertyRef Name="ItemFileId" />
+            </Principal>
+            <Dependent Role="DOC_METADATA">
+              <PropertyRef Name="ItemFileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemFile_DOCS">
+          <End Role="DOCS" Type="Self.DOC" Multiplicity="0..1" />
+          <End Role="ItemFile" Type="Self.ItemFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DOCS">
+              <PropertyRef Name="DOC_ID" />
+            </Principal>
+            <Dependent Role="ItemFile">
+              <PropertyRef Name="DocID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IT_Files_IssueTracking_Issues">
+          <End Role="RDIItem" Type="Self.RDIItem" Multiplicity="0..1" />
+          <End Role="ItemFile" Type="Self.ItemFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RDIItem">
+              <PropertyRef Name="RDIItemId" />
+            </Principal>
+            <Dependent Role="ItemFile">
+              <PropertyRef Name="RDIItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RDIItem_IssueTracking_Priority">
+          <End Role="ItemPriority" Type="Self.ItemPriority" Multiplicity="0..1" />
+          <End Role="RDIItem" Type="Self.RDIItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemPriority">
+              <PropertyRef Name="ItemPriorityId" />
+            </Principal>
+            <Dependent Role="RDIItem">
+              <PropertyRef Name="PriorityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemStatusNextValid_ItemStatus">
+          <End Role="ItemStatus" Type="Self.ItemStatu" Multiplicity="1" />
+          <End Role="ItemStatusNextValid" Type="Self.ItemStatusNextValid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemStatus">
+              <PropertyRef Name="ItemStatusId" />
+            </Principal>
+            <Dependent Role="ItemStatusNextValid">
+              <PropertyRef Name="ItemStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemStatusNextValid_ItemStatus_NextValid">
+          <End Role="ItemStatus" Type="Self.ItemStatu" Multiplicity="1" />
+          <End Role="ItemStatusNextValid" Type="Self.ItemStatusNextValid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemStatus">
+              <PropertyRef Name="ItemStatusId" />
+            </Principal>
+            <Dependent Role="ItemStatusNextValid">
+              <PropertyRef Name="ItemStatusNextValidId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RDIItem_IssueTracking_Status">
+          <End Role="ItemStatus" Type="Self.ItemStatu" Multiplicity="1" />
+          <End Role="RDIItem" Type="Self.RDIItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemStatus">
+              <PropertyRef Name="ItemStatusId" />
+            </Principal>
+            <Dependent Role="RDIItem">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemSubscriber_RDIItem">
+          <End Role="RDIItem" Type="Self.RDIItem" Multiplicity="1" />
+          <End Role="ItemSubscriber" Type="Self.ItemSubscriber" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RDIItem">
+              <PropertyRef Name="RDIItemId" />
+            </Principal>
+            <Dependent Role="ItemSubscriber">
+              <PropertyRef Name="RDIItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RDIItem_IssueTracking_Type">
+          <End Role="ItemType" Type="Self.ItemType" Multiplicity="0..1" />
+          <End Role="RDIItem" Type="Self.RDIItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemType">
+              <PropertyRef Name="ItemTypeId" />
+            </Principal>
+            <Dependent Role="RDIItem">
+              <PropertyRef Name="ItemTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RDIItemHistory_RDIItem">
+          <End Role="RDIItem" Type="Self.RDIItem" Multiplicity="1" />
+          <End Role="RDIItemHistory" Type="Self.RDIItemHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RDIItem">
+              <PropertyRef Name="RDIItemId" />
+            </Principal>
+            <Dependent Role="RDIItemHistory">
+              <PropertyRef Name="RDIItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RDIItemPageTitle_RDIItem">
+          <End Role="RDIItem" Type="Self.RDIItem" Multiplicity="1" />
+          <End Role="RDIItemPageTitle" Type="Self.RDIItemPageTitle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RDIItem">
+              <PropertyRef Name="RDIItemId" />
+            </Principal>
+            <Dependent Role="RDIItemPageTitle">
+              <PropertyRef Name="RDIItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RDIItemTag_RDIItem">
+          <End Role="RDIItem" Type="Self.RDIItem" Multiplicity="1" />
+          <End Role="RDIItemTag" Type="Self.RDIItemTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RDIItem">
+              <PropertyRef Name="RDIItemId" />
+            </Principal>
+            <Dependent Role="RDIItemTag">
+              <PropertyRef Name="RDIItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupID">
+          <End Role="RDIItemGroup" Type="Self.RDIItemGroup" Multiplicity="1" />
+          <End Role="RDIItemGroupMembers" Type="Self.RDIItemGroupMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RDIItemGroup">
+              <PropertyRef Name="GroupID" />
+            </Principal>
+            <Dependent Role="RDIItemGroupMembers">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RDI_ProductionEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DOC_METADATA" EntityType="Self.DOC_METADATA" />
+          <EntitySet Name="DOCS" EntityType="Self.DOC" />
+          <EntitySet Name="ItemFiles" EntityType="Self.ItemFile" />
+          <EntitySet Name="ItemPriorities" EntityType="Self.ItemPriority" />
+          <EntitySet Name="ItemStatus" EntityType="Self.ItemStatu" />
+          <EntitySet Name="ItemStatusModules" EntityType="Self.ItemStatusModule" />
+          <EntitySet Name="ItemStatusNextValids" EntityType="Self.ItemStatusNextValid" />
+          <EntitySet Name="ItemSubscribers" EntityType="Self.ItemSubscriber" />
+          <EntitySet Name="ItemTypes" EntityType="Self.ItemType" />
+          <EntitySet Name="ItemTypeModules" EntityType="Self.ItemTypeModule" />
+          <EntitySet Name="RDIItems" EntityType="Self.RDIItem" />
+          <EntitySet Name="RDIItemGroups" EntityType="Self.RDIItemGroup" />
+          <EntitySet Name="RDIItemGroupMembers" EntityType="Self.RDIItemGroupMember" />
+          <EntitySet Name="RDIItemHistories" EntityType="Self.RDIItemHistory" />
+          <EntitySet Name="RDIItemPageTitles" EntityType="Self.RDIItemPageTitle" />
+          <EntitySet Name="RDIItemTags" EntityType="Self.RDIItemTag" />
+          <EntitySet Name="AllUsers" EntityType="Self.AllUser" />
+          <AssociationSet Name="FK_DOC_METADATA_DOCS" Association="Self.FK_DOC_METADATA_DOCS">
+            <End Role="DOCS" EntitySet="DOCS" />
+            <End Role="DOC_METADATA" EntitySet="DOC_METADATA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DocMetadata_ref_ItemFile" Association="Self.FK_DocMetadata_ref_ItemFile">
+            <End Role="ItemFile" EntitySet="ItemFiles" />
+            <End Role="DOC_METADATA" EntitySet="DOC_METADATA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemFile_DOCS" Association="Self.FK_ItemFile_DOCS">
+            <End Role="DOCS" EntitySet="DOCS" />
+            <End Role="ItemFile" EntitySet="ItemFiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IT_Files_IssueTracking_Issues" Association="Self.FK_IT_Files_IssueTracking_Issues">
+            <End Role="RDIItem" EntitySet="RDIItems" />
+            <End Role="ItemFile" EntitySet="ItemFiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RDIItem_IssueTracking_Priority" Association="Self.FK_RDIItem_IssueTracking_Priority">
+            <End Role="ItemPriority" EntitySet="ItemPriorities" />
+            <End Role="RDIItem" EntitySet="RDIItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemStatusNextValid_ItemStatus" Association="Self.FK_ItemStatusNextValid_ItemStatus">
+            <End Role="ItemStatus" EntitySet="ItemStatus" />
+            <End Role="ItemStatusNextValid" EntitySet="ItemStatusNextValids" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemStatusNextValid_ItemStatus_NextValid" Association="Self.FK_ItemStatusNextValid_ItemStatus_NextValid">
+            <End Role="ItemStatus" EntitySet="ItemStatus" />
+            <End Role="ItemStatusNextValid" EntitySet="ItemStatusNextValids" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RDIItem_IssueTracking_Status" Association="Self.FK_RDIItem_IssueTracking_Status">
+            <End Role="ItemStatus" EntitySet="ItemStatus" />
+            <End Role="RDIItem" EntitySet="RDIItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemSubscriber_RDIItem" Association="Self.FK_ItemSubscriber_RDIItem">
+            <End Role="RDIItem" EntitySet="RDIItems" />
+            <End Role="ItemSubscriber" EntitySet="ItemSubscribers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RDIItem_IssueTracking_Type" Association="Self.FK_RDIItem_IssueTracking_Type">
+            <End Role="ItemType" EntitySet="ItemTypes" />
+            <End Role="RDIItem" EntitySet="RDIItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RDIItemHistory_RDIItem" Association="Self.FK_RDIItemHistory_RDIItem">
+            <End Role="RDIItem" EntitySet="RDIItems" />
+            <End Role="RDIItemHistory" EntitySet="RDIItemHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RDIItemPageTitle_RDIItem" Association="Self.FK_RDIItemPageTitle_RDIItem">
+            <End Role="RDIItem" EntitySet="RDIItems" />
+            <End Role="RDIItemPageTitle" EntitySet="RDIItemPageTitles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RDIItemTag_RDIItem" Association="Self.FK_RDIItemTag_RDIItem">
+            <End Role="RDIItem" EntitySet="RDIItems" />
+            <End Role="RDIItemTag" EntitySet="RDIItemTags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupID" Association="Self.FK_GroupID">
+            <End Role="RDIItemGroup" EntitySet="RDIItemGroups" />
+            <End Role="RDIItemGroupMembers" EntitySet="RDIItemGroupMembers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DbModelStoreContainer" CdmEntityContainer="RDI_ProductionEntities">
+          <EntitySetMapping Name="DOC_METADATA">
+            <EntityTypeMapping TypeName="DbModel.DOC_METADATA">
+              <MappingFragment StoreEntitySet="DOC_METADATA">
+                <ScalarProperty Name="DOC_METADATA_ID" ColumnName="DOC_METADATA_ID" />
+                <ScalarProperty Name="DOC_ID" ColumnName="DOC_ID" />
+                <ScalarProperty Name="TITLE" ColumnName="TITLE" />
+                <ScalarProperty Name="FILE_NAME" ColumnName="FILE_NAME" />
+                <ScalarProperty Name="DOC_UPD_DATE" ColumnName="DOC_UPD_DATE" />
+                <ScalarProperty Name="DOC_MIME_TYPE" ColumnName="DOC_MIME_TYPE" />
+                <ScalarProperty Name="DOC_EXTENSION" ColumnName="DOC_EXTENSION" />
+                <ScalarProperty Name="APP_NAME" ColumnName="APP_NAME" />
+                <ScalarProperty Name="ins_user" ColumnName="ins_user" />
+                <ScalarProperty Name="ins_date" ColumnName="ins_date" />
+                <ScalarProperty Name="upd_user" ColumnName="upd_user" />
+                <ScalarProperty Name="upd_date" ColumnName="upd_date" />
+                <ScalarProperty Name="DocumentDeleted" ColumnName="DocumentDeleted" />
+                <ScalarProperty Name="docTypeCode" ColumnName="docTypeCode" />
+                <ScalarProperty Name="repository_type" ColumnName="repository_type" />
+                <ScalarProperty Name="repository_id" ColumnName="repository_id" />
+                <ScalarProperty Name="version_count" ColumnName="version_count" />
+                <ScalarProperty Name="ItemFileId" ColumnName="ItemFileId" />
+                <ScalarProperty Name="VersionNumber" ColumnName="VersionNumber" />
+                <ScalarProperty Name="IsFinal" ColumnName="IsFinal" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DOCS">
+            <EntityTypeMapping TypeName="DbModel.DOC">
+              <MappingFragment StoreEntitySet="DOCS">
+                <ScalarProperty Name="DOC_ID" ColumnName="DOC_ID" />
+                <ScalarProperty Name="DOC1" ColumnName="DOC" />
+                <ScalarProperty Name="ins_user" ColumnName="ins_user" />
+                <ScalarProperty Name="ins_date" ColumnName="ins_date" />
+                <ScalarProperty Name="upd_user" ColumnName="upd_user" />
+                <ScalarProperty Name="upd_date" ColumnName="upd_date" />
+                <ScalarProperty Name="parent_id" ColumnName="parent_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemFiles">
+            <EntityTypeMapping TypeName="DbModel.ItemFile">
+              <MappingFragment StoreEntitySet="ItemFile">
+                <ScalarProperty Name="ItemFileId" ColumnName="ItemFileId" />
+                <ScalarProperty Name="RDIItemId" ColumnName="RDIItemId" />
+                <ScalarProperty Name="DocID" ColumnName="DocID" />
+                <ScalarProperty Name="ins_user" ColumnName="ins_user" />
+                <ScalarProperty Name="ins_date" ColumnName="ins_date" />
+                <ScalarProperty Name="upd_user" ColumnName="upd_user" />
+                <ScalarProperty Name="upd_date" ColumnName="upd_date" />
+                <ScalarProperty Name="DocCategory" ColumnName="DocCategory" />
+                <ScalarProperty Name="DocNotes" ColumnName="DocNotes" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemPriorities">
+            <EntityTypeMapping TypeName="DbModel.ItemPriority">
+              <MappingFragment StoreEntitySet="ItemPriority">
+                <ScalarProperty Name="ItemPriorityId" ColumnName="ItemPriorityId" />
+                <ScalarProperty Name="ItemPriority1" ColumnName="ItemPriority" />
+                <ScalarProperty Name="ins_user" ColumnName="ins_user" />
+                <ScalarProperty Name="ins_date" ColumnName="ins_date" />
+                <ScalarProperty Name="upd_user" ColumnName="upd_user" />
+                <ScalarProperty Name="upd_date" ColumnName="upd_date" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemStatus">
+            <EntityTypeMapping TypeName="DbModel.ItemStatu">
+              <MappingFragment StoreEntitySet="ItemStatus">
+                <ScalarProperty Name="ItemStatusId" ColumnName="ItemStatusId" />
+                <ScalarProperty Name="ItemStatus" ColumnName="ItemStatus" />
+                <ScalarProperty Name="ins_user" ColumnName="ins_user" />
+                <ScalarProperty Name="ins_date" ColumnName="ins_date" />
+                <ScalarProperty Name="upd_user" ColumnName="upd_user" />
+                <ScalarProperty Name="upd_date" ColumnName="upd_date" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="StatusDesc" ColumnName="StatusDesc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemStatusModules">
+            <EntityTypeMapping TypeName="DbModel.ItemStatusModule">
+              <MappingFragment StoreEntitySet="ItemStatusModule">
+                <ScalarProperty Name="ItemStatusModuleId" ColumnName="ItemStatusModuleId" />
+                <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+                <ScalarProperty Name="ItemStatusId" ColumnName="ItemStatusId" />
+                <ScalarProperty Name="ins_user" ColumnName="ins_user" />
+                <ScalarProperty Name="ins_date" ColumnName="ins_date" />
+                <ScalarProperty Name="upd_user" ColumnName="upd_user" />
+                <ScalarProperty Name="upd_date" ColumnName="upd_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemStatusNextValids">
+            <EntityTypeMapping TypeName="DbModel.ItemStatusNextValid">
+              <MappingFragment StoreEntitySet="ItemStatusNextValid">
+                <ScalarProperty Name="ItemStatusId" ColumnName="ItemStatusId" />
+                <ScalarProperty Name="ItemStatusNextValidId" ColumnName="ItemStatusNextValidId" />
+                <ScalarProperty Name="ins_user" ColumnName="ins_user" />
+                <ScalarProperty Name="ins_date" ColumnName="ins_date" />
+                <ScalarProperty Name="upd_user" ColumnName="upd_user" />
+                <ScalarProperty Name="upd_date" ColumnName="upd_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemSubscribers">
+            <EntityTypeMapping TypeName="DbModel.ItemSubscriber">
+              <MappingFragment StoreEntitySet="ItemSubscriber">
+                <ScalarProperty Name="ItemSubscriberId" ColumnName="ItemSubscriberId" />
+                <ScalarProperty Name="RDIItemId" ColumnName="RDIItemId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ins_user" ColumnName="ins_user" />
+                <ScalarProperty Name="ins_date" ColumnName="ins_date" />
+                <ScalarProperty Name="upd_user" ColumnName="upd_user" />
+                <ScalarProperty Name="upd_date" ColumnName="upd_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemTypes">
+            <EntityTypeMapping TypeName="DbModel.ItemType">
+              <MappingFragment StoreEntitySet="ItemType">
+                <ScalarProperty Name="ItemTypeId" ColumnName="ItemTypeId" />
+                <ScalarProperty Name="ItemType1" ColumnName="ItemType" />
+                <ScalarProperty Name="ins_user" ColumnName="ins_user" />
+                <ScalarProperty Name="ins_date" ColumnName="ins_date" />
+                <ScalarProperty Name="upd_user" ColumnName="upd_user" />
+                <ScalarProperty Name="upd_date" ColumnName="upd_date" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="TypeDesc" ColumnName="TypeDesc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemTypeModules">
+            <EntityTypeMapping TypeName="DbModel.ItemTypeModule">
+              <MappingFragment StoreEntitySet="ItemTypeModule">
+                <ScalarProperty Name="ItemTypeModuleId" ColumnName="ItemTypeModuleId" />
+                <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+                <ScalarProperty Name="ItemTypeId" ColumnName="ItemTypeId" />
+                <ScalarProperty Name="ins_user" ColumnName="ins_user" />
+                <ScalarProperty Name="ins_date" ColumnName="ins_date" />
+                <ScalarProperty Name="upd_user" ColumnName="upd_user" />
+                <ScalarProperty Name="upd_date" ColumnName="upd_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RDIItems">
+            <EntityTypeMapping TypeName="DbModel.RDIItem">
+              <MappingFragment StoreEntitySet="RDIItem">
+                <ScalarProperty Name="RDIItemId" ColumnName="RDIItemId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ItemTypeId" ColumnName="ItemTypeId" />
+                <ScalarProperty Name="CLIENT_ID" ColumnName="CLIENT_ID" />
+                <ScalarProperty Name="PROJECT_NO" ColumnName="PROJECT_NO" />
+                <ScalarProperty Name="PHASE" ColumnName="PHASE" />
+                <ScalarProperty Name="TASK" ColumnName="TASK" />
+                <ScalarProperty Name="PriorityId" ColumnName="PriorityId" />
+                <ScalarProperty Name="ins_user" ColumnName="ins_user" />
+                <ScalarProperty Name="ins_date" ColumnName="ins_date" />
+                <ScalarProperty Name="upd_user" ColumnName="upd_user" />
+                <ScalarProperty Name="upd_date" ColumnName="upd_date" />
+                <ScalarProperty Name="ParentRDIItemId" ColumnName="ParentRDIItemId" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="AssignedTo" ColumnName="AssignedTo" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="HoursEstimated" ColumnName="HoursEstimated" />
+                <ScalarProperty Name="FeatureBranch" ColumnName="FeatureBranch" />
+                <ScalarProperty Name="ChangedDescription" ColumnName="ChangedDescription" />
+                <ScalarProperty Name="RecurringRDIItemId" ColumnName="RecurringRDIItemId" />
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="IsRecurring" ColumnName="IsRecurring" />
+                <ScalarProperty Name="LastCreated" ColumnName="LastCreated" />
+                <ScalarProperty Name="NextCreation" ColumnName="NextCreation" />
+                <ScalarProperty Name="ScheduleFieldName" ColumnName="ScheduleFieldName" />
+                <ScalarProperty Name="ScheduleCode" ColumnName="ScheduleCode" />
+                <ScalarProperty Name="ScheduleDetail" ColumnName="ScheduleDetail" />
+                <ScalarProperty Name="ScheduleStartDate" ColumnName="ScheduleStartDate" />
+                <ScalarProperty Name="ScheduleEndDate" ColumnName="ScheduleEndDate" />
+                <ScalarProperty Name="SchedulePause" ColumnName="SchedulePause" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RDIItemGroups">
+            <EntityTypeMapping TypeName="DbModel.RDIItemGroup">
+              <MappingFragment StoreEntitySet="RDIItemGroup">
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="ins_user" ColumnName="ins_user" />
+                <ScalarProperty Name="ins_date" ColumnName="ins_date" />
+                <ScalarProperty Name="upd_user" ColumnName="upd_user" />
+                <ScalarProperty Name="upd_date" ColumnName="upd_date" />
+                <ScalarProperty Name="AppID" ColumnName="AppID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RDIItemGroupMembers">
+            <EntityTypeMapping TypeName="DbModel.RDIItemGroupMember">
+              <MappingFragment StoreEntitySet="RDIItemGroupMembers">
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ins_user" ColumnName="ins_user" />
+                <ScalarProperty Name="ins_date" ColumnName="ins_date" />
+                <ScalarProperty Name="upd_user" ColumnName="upd_user" />
+                <ScalarProperty Name="upd_date" ColumnName="upd_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RDIItemHistories">
+            <EntityTypeMapping TypeName="DbModel.RDIItemHistory">
+              <MappingFragment StoreEntitySet="RDIItemHistory">
+                <ScalarProperty Name="RDIItemHistoryId" ColumnName="RDIItemHistoryId" />
+                <ScalarProperty Name="RDIItemId" ColumnName="RDIItemId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="PriorityId" ColumnName="PriorityId" />
+                <ScalarProperty Name="ItemTypeId" ColumnName="ItemTypeId" />
+                <ScalarProperty Name="ParentRDIItemId" ColumnName="ParentRDIItemId" />
+                <ScalarProperty Name="AssignedTo" ColumnName="AssignedTo" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="ChangeDate" ColumnName="ChangeDate" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="UpdateNote" ColumnName="UpdateNote" />
+                <ScalarProperty Name="ins_user" ColumnName="ins_user" />
+                <ScalarProperty Name="ins_date" ColumnName="ins_date" />
+                <ScalarProperty Name="upd_user" ColumnName="upd_user" />
+                <ScalarProperty Name="upd_date" ColumnName="upd_date" />
+                <ScalarProperty Name="HoursEstimated" ColumnName="HoursEstimated" />
+                <ScalarProperty Name="CLIENT_ID" ColumnName="CLIENT_ID" />
+                <ScalarProperty Name="PROJECT_NO" ColumnName="PROJECT_NO" />
+                <ScalarProperty Name="PHASE" ColumnName="PHASE" />
+                <ScalarProperty Name="TASK" ColumnName="TASK" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="FeatureBranch" ColumnName="FeatureBranch" />
+                <ScalarProperty Name="ChangedDescription" ColumnName="ChangedDescription" />
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="RecurringRDIItemId" ColumnName="RecurringRDIItemId" />
+                <ScalarProperty Name="LastCreated" ColumnName="LastCreated" />
+                <ScalarProperty Name="NextCreation" ColumnName="NextCreation" />
+                <ScalarProperty Name="IsRecurring" ColumnName="IsRecurring" />
+                <ScalarProperty Name="ScheduleFieldName" ColumnName="ScheduleFieldName" />
+                <ScalarProperty Name="ScheduleCode" ColumnName="ScheduleCode" />
+                <ScalarProperty Name="ScheduleDetail" ColumnName="ScheduleDetail" />
+                <ScalarProperty Name="ScheduleStartDate" ColumnName="ScheduleStartDate" />
+                <ScalarProperty Name="ScheduleEndDate" ColumnName="ScheduleEndDate" />
+                <ScalarProperty Name="SchedulePause" ColumnName="SchedulePause" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RDIItemPageTitles">
+            <EntityTypeMapping TypeName="DbModel.RDIItemPageTitle">
+              <MappingFragment StoreEntitySet="RDIItemPageTitle">
+                <ScalarProperty Name="RDIItemPageTitleId" ColumnName="RDIItemPageTitleId" />
+                <ScalarProperty Name="RDIItemId" ColumnName="RDIItemId" />
+                <ScalarProperty Name="IntranetSecurityKey" ColumnName="IntranetSecurityKey" />
+                <ScalarProperty Name="ins_user" ColumnName="ins_user" />
+                <ScalarProperty Name="ins_date" ColumnName="ins_date" />
+                <ScalarProperty Name="upd_user" ColumnName="upd_user" />
+                <ScalarProperty Name="upd_date" ColumnName="upd_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RDIItemTags">
+            <EntityTypeMapping TypeName="DbModel.RDIItemTag">
+              <MappingFragment StoreEntitySet="RDIItemTag">
+                <ScalarProperty Name="RDIItemTagId" ColumnName="RDIItemTagId" />
+                <ScalarProperty Name="TagId" ColumnName="TagId" />
+                <ScalarProperty Name="RDIItemId" ColumnName="RDIItemId" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="ins_user" ColumnName="ins_user" />
+                <ScalarProperty Name="ins_date" ColumnName="ins_date" />
+                <ScalarProperty Name="upd_user" ColumnName="upd_user" />
+                <ScalarProperty Name="upd_date" ColumnName="upd_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AllUsers">
+            <EntityTypeMapping TypeName="DbModel.AllUser">
+              <MappingFragment StoreEntitySet="AllUsers">
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="LASTNAME" ColumnName="LASTNAME" />
+                <ScalarProperty Name="FIRSTNAME" ColumnName="FIRSTNAME" />
+                <ScalarProperty Name="FULLNAME" ColumnName="FULLNAME" />
+                <ScalarProperty Name="FULLNAME2" ColumnName="FULLNAME2" />
+                <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="EMPID" ColumnName="EMPID" />
+                <ScalarProperty Name="CONTACT_KEY" ColumnName="CONTACT_KEY" />
+                <ScalarProperty Name="CLIENT_ID" ColumnName="CLIENT_ID" />
+                <ScalarProperty Name="IsDisabled" ColumnName="IsDisabled" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

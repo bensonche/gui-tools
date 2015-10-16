@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="def0994187664794b01957763ee69a54" Name="Diagram1">
+        <EntityTypeShape EntityType="DbModel.DOC_METADATA" Width="1.5" PointX="13.5" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModel.DOC" Width="1.5" PointX="9" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModel.ItemFile" Width="1.5" PointX="11.25" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModel.ItemPriority" Width="1.5" PointX="3.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModel.ItemStatu" Width="1.5" PointX="0.75" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModel.ItemStatusModule" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModel.ItemStatusNextValid" Width="1.5" PointX="3" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModel.ItemSubscriber" Width="1.5" PointX="8.25" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModel.ItemType" Width="1.5" PointX="3.75" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModel.ItemTypeModule" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModel.RDIItem" Width="1.5" PointX="6" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModel.RDIItemGroup" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModel.RDIItemGroupMember" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModel.RDIItemHistory" Width="1.5" PointX="8.25" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModel.RDIItemPageTitle" Width="1.5" PointX="8.25" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModel.RDIItemTag" Width="1.5" PointX="8.25" PointY="27.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModel.AllUser" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="DbModel.FK_DOC_METADATA_DOCS" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModel.FK_DocMetadata_ref_ItemFile" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModel.FK_ItemFile_DOCS" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModel.FK_IT_Files_IssueTracking_Issues" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModel.FK_RDIItem_IssueTracking_Priority" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModel.FK_ItemStatusNextValid_ItemStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModel.FK_ItemStatusNextValid_ItemStatus_NextValid" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModel.FK_RDIItem_IssueTracking_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModel.FK_ItemSubscriber_RDIItem" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModel.FK_RDIItem_IssueTracking_Type" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModel.FK_RDIItemHistory_RDIItem" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModel.FK_RDIItemPageTitle_RDIItem" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModel.FK_RDIItemTag_RDIItem" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModel.FK_GroupID" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjVerify", "ProjVerify\Pr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQL_Object_Generator", "SQL_Object_Generator\SQL_Object_Generator.csproj", "{DF1B12C4-0F8F-4E8E-9CDB-1BE2C9522170}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Releaser", "Releaser\Releaser.csproj", "{47D168B8-B68B-433F-A95A-DDC5264D7CEC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{DF1B12C4-0F8F-4E8E-9CDB-1BE2C9522170}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF1B12C4-0F8F-4E8E-9CDB-1BE2C9522170}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF1B12C4-0F8F-4E8E-9CDB-1BE2C9522170}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47D168B8-B68B-433F-A95A-DDC5264D7CEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47D168B8-B68B-433F-A95A-DDC5264D7CEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47D168B8-B68B-433F-A95A-DDC5264D7CEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47D168B8-B68B-433F-A95A-DDC5264D7CEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
