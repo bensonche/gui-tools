@@ -51,6 +51,7 @@
     <Compile Include="ScriptGenerator\Model\DbObjectResult.cs" />
     <Compile Include="ScriptGenerator\ObjectTypes\Proc.cs" />
     <Compile Include="ScriptGenerator\ObjectTypes\Trigger.cs" />
+    <Compile Include="ScriptGenerator\ObjectTypes\View.cs" />
     <Compile Include="ScriptGenerator\ScriptGeneratorData.cs" />
     <Compile Include="SqlObjectGeneratorForm.cs">
       <SubType>Form</SubType>

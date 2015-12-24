@@ -36,6 +36,7 @@ namespace BC.ScriptGenerator
             ObjectList.Add(new Trigger());
             ObjectList.Add(new Function());
             ObjectList.Add(new Proc());
+            ObjectList.Add(new View());
         }
 
         public async Task GenerateAsync()
@@ -68,7 +69,7 @@ namespace BC.ScriptGenerator
 
         private async Task GenerateObjectScript(ObjectType type)
         {
-            var definitionTask = data.GetDbOjectAsync(type);
+            var definitionTask = type.GetDbOjectAsync(ConnectionString);
 
             DirectoryInfo d = new DirectoryInfo(Path.Combine(OutputDir, type.Name));
 
