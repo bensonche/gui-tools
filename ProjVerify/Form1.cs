@@ -82,7 +82,7 @@ namespace ProjVerify
                 ToggleControls(false);
 
                 FileInfo csproj = new FileInfo(txtCsproj.Text);
-                if(!csproj.Exists)
+                if (!csproj.Exists)
                 {
                     txtResult.Text = String.Format("Cannot find {0}", csproj.Name);
                     return;
@@ -90,8 +90,8 @@ namespace ProjVerify
 
                 Dictionary<string, int> csprojD = new Dictionary<string, int>();
 
-                using(FileStream fs = csproj.OpenRead())
-                using(StreamReader sr = new StreamReader(fs))
+                using (FileStream fs = csproj.OpenRead())
+                using (StreamReader sr = new StreamReader(fs))
                 {
                     string csprojString = sr.ReadToEnd();
 
@@ -99,9 +99,9 @@ namespace ProjVerify
                     XNamespace ns = element.GetDefaultNamespace();
 
                     var compile = from field in element.Descendants(ns + "Compile")
-                                  select Path.Combine(csproj.DirectoryName, field.Attribute("Include").Value);
+                        select Path.Combine(csproj.DirectoryName, field.Attribute("Include").Value);
                     var content = from field in element.Descendants(ns + "Content")
-                                  select Path.Combine(csproj.DirectoryName, field.Attribute("Include").Value);
+                        select Path.Combine(csproj.DirectoryName, field.Attribute("Include").Value);
 
                     csprojD.Add(compile);
                     csprojD.Add(content);
@@ -113,22 +113,22 @@ namespace ProjVerify
                 List<string> notInFileSystem = new List<string>();
                 List<string> notInCsproj = new List<string>();
 
-                foreach(var a in csprojD.Keys)
+                foreach (var a in csprojD.Keys)
                 {
-                    if(!paths.Keys.Contains(a))
+                    if (!paths.Keys.Contains(a, StringComparer.InvariantCultureIgnoreCase))
                         notInFileSystem.Add(a);
                 }
 
-                foreach(var a in paths.Keys)
+                foreach (var a in paths.Keys)
                 {
-                    if(!csprojD.Keys.Contains(a))
+                    if (!csprojD.Keys.Contains(a, StringComparer.InvariantCultureIgnoreCase))
                         notInCsproj.Add(a);
                 }
 
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine("Files in csproj but not in file system:");
                 sb.AppendLine();
-                foreach(var a in notInFileSystem.OrderBy(x => x))
+                foreach (var a in notInFileSystem.OrderBy(x => x))
                     sb.AppendLine(a);
 
                 sb.AppendLine();
@@ -137,7 +137,7 @@ namespace ProjVerify
 
                 sb.AppendLine("Files in file system but not in csproj:");
                 sb.AppendLine();
-                foreach(var a in notInCsproj.OrderBy(x => x))
+                foreach (var a in notInCsproj.OrderBy(x => x))
                     sb.AppendLine(a);
 
 
@@ -147,11 +147,11 @@ namespace ProjVerify
 
                 sb.AppendLine("Duplicates in csproj:");
                 var duplicates = from p in csprojD.AsEnumerable()
-                                 where p.Value > 1
-                                 orderby p.Key
-                                 select p;
+                    where p.Value > 1
+                    orderby p.Key
+                    select p;
 
-                foreach(var proj in duplicates)
+                foreach (var proj in duplicates)
                 {
                     sb.AppendLine(proj.Key);
                 }

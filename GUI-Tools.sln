@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SettingsManager", "SettingsManager\SettingsManager.csproj", "{182538BA-FBBC-4411-B6A7-A9DDBB0B7998}"
 EndProject
@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjVerify", "ProjVerify\Pr
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQL_Object_Generator", "SQL_Object_Generator\SQL_Object_Generator.csproj", "{DF1B12C4-0F8F-4E8E-9CDB-1BE2C9522170}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlLauncher", "SqlLauncher\SqlLauncher.csproj", "{466028A8-34C6-4BCC-8091-2EDA3484C424}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +38,10 @@ Global
 		{DF1B12C4-0F8F-4E8E-9CDB-1BE2C9522170}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF1B12C4-0F8F-4E8E-9CDB-1BE2C9522170}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF1B12C4-0F8F-4E8E-9CDB-1BE2C9522170}.Release|Any CPU.Build.0 = Release|Any CPU
+		{466028A8-34C6-4BCC-8091-2EDA3484C424}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{466028A8-34C6-4BCC-8091-2EDA3484C424}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{466028A8-34C6-4BCC-8091-2EDA3484C424}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{466028A8-34C6-4BCC-8091-2EDA3484C424}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

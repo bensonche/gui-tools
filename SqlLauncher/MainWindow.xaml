@@ -1,0 +1,14 @@
+﻿<Window x:Class="SqlLauncher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SqlLauncher"
+        mc:Ignorable="d"
+        Title="SQL Launcher" Height="300" Width="300" ResizeMode="NoResize">
+    <StackPanel VerticalAlignment="Center">
+        <Button Margin="10" Height="50" Width="250" Click="Launcher_Click">DEV</Button>
+        <Button Margin="10" Height="50" Width="250" Click="Launcher_Click">TEST</Button>
+        <Button Margin="10" Height="50" Width="250" Click="Launcher_Click">PROD</Button>
+    </StackPanel>
+</Window>
