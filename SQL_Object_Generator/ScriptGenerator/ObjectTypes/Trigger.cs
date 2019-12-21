@@ -8,7 +8,10 @@ namespace BC.ScriptGenerator.ObjectTypes
 {
     public class Trigger : ObjectType
     {
-        public override string Name { get { return "triggers"; } }
+        public override string Name
+        {
+            get { return "triggers"; }
+        }
 
         public Trigger()
         {
@@ -17,19 +20,14 @@ namespace BC.ScriptGenerator.ObjectTypes
 
         public override string CountQuery
         {
-            get
-            {
-                return @"
+            get { return @"
                     select count(*)
-                    from sys.triggers";
-            }
+                    from sys.triggers"; }
         }
 
         public override string DefinitionQuery
         {
-            get
-            {
-                return @"
+            get { return @"
                     select
                         a.name,
                         b.definition,
@@ -43,8 +41,7 @@ namespace BC.ScriptGenerator.ObjectTypes
                         inner join sys.tables c
                             on a.parent_id = c.object_id
                         inner join sys.schemas d
-                            on c.schema_id = d.schema_id";
-            }
+                            on c.schema_id = d.schema_id"; }
         }
 
         public override string FileBody
@@ -53,15 +50,14 @@ namespace BC.ScriptGenerator.ObjectTypes
             {
                 StringBuilder sb = new StringBuilder();
 
-                sb.AppendLine("IF  EXISTS (SELECT * FROM sys.triggers WHERE object_id = OBJECT_ID(N'[{2}].[{0}]'))");
-                sb.AppendLine("DROP TRIGGER [{2}].[{0}]");
-                sb.AppendLine("GO");
-                sb.AppendLine("SET ANSI_NULLS ON");
-                sb.AppendLine("GO");
-                sb.AppendLine("SET QUOTED_IDENTIFIER ON");
-                sb.AppendLine("GO");
+                sb.AppendLine("drop trigger if exists [{2}].[{0}]");
+                sb.AppendLine("go");
+                sb.AppendLine("set ansi_nulls on");
+                sb.AppendLine("go");
+                sb.AppendLine("set quoted_identifier on");
+                sb.AppendLine("go");
                 sb.Append("{1}");
-                sb.AppendLine("GO");
+                sb.AppendLine("go");
 
                 return sb.ToString();
             }

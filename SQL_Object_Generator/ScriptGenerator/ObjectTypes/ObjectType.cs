@@ -62,8 +62,8 @@ namespace BC.ScriptGenerator
                               Name = t.Field<string>("name"),
                               Definition = t.Field<string>("definition"),
                               Schema = t.Field<string>("schema"),
-                              PermissionType = t.Field<string>("PermissionType"),
-                              PermissionName = t.Field<string>("PermissionName"),
+                              PermissionType = t.Field<string>("PermissionType")?.ToLower(),
+                              PermissionName = t.Field<string>("PermissionName")?.ToLower(),
                               GranteeName = t.Field<string>("GranteeName")
                           };
 
@@ -97,7 +97,7 @@ namespace BC.ScriptGenerator
                             obj.Key.Name,
                             permission.GranteeName));
                     }
-                    sb.AppendLine("GO");
+                    sb.AppendLine("go");
 
                     result.PermissionString = hasPermissions ? sb.ToString() : null;
 

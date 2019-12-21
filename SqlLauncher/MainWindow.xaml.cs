@@ -39,7 +39,7 @@ namespace SqlLauncher
                     dbString = "-S inet-sql-dev -d RDI_Test";
                     break;
                 case "PROD":
-                    dbString = "-S sqlserver3 -d RDI_Production";
+                    dbString = "-S inet-sql-prod -d RDI_Production";
                     break;
             }
 

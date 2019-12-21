@@ -8,24 +8,22 @@ namespace BC.ScriptGenerator.ObjectTypes
 {
     public class Function : ObjectType
     {
-        public override string Name { get { return "functions"; } }
+        public override string Name
+        {
+            get { return "functions"; }
+        }
 
         public override string CountQuery
         {
-            get
-            {
-                return @"
+            get { return @"
                     select count(*)
                     from sys.objects
-                    where type in (N'FN', N'IF', N'TF', N'FS', N'FT')";
-            }
+                    where type in (N'FN', N'IF', N'TF', N'FS', N'FT')"; }
         }
 
         public override string DefinitionQuery
         {
-            get
-            {
-                return @"
+            get { return @"
                     select
                         a.name,
                         b.definition,
@@ -42,8 +40,7 @@ namespace BC.ScriptGenerator.ObjectTypes
                             on a.object_id = per.major_id
                         left join sys.database_principals pri
                             on per.grantee_principal_id = pri.principal_id
-                    where a.type in (N'FN', N'IF', N'TF', N'FS', N'FT')";
-            }
+                    where a.type in (N'FN', N'IF', N'TF', N'FS', N'FT')"; }
         }
 
         public override string FileBody
@@ -52,16 +49,14 @@ namespace BC.ScriptGenerator.ObjectTypes
             {
                 StringBuilder sb = new StringBuilder();
 
-                sb.AppendLine(
-                             "IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[{2}].[{0}]') AND type in (N'FN', N'IF', N'TF', N'FS', N'FT'))");
-                sb.AppendLine("DROP FUNCTION [{2}].[{0}]");
-                sb.AppendLine("GO");
-                sb.AppendLine("SET ANSI_NULLS ON");
-                sb.AppendLine("GO");
-                sb.AppendLine("SET QUOTED_IDENTIFIER ON");
-                sb.AppendLine("GO");
+                sb.AppendLine("drop function if exists [{2}].[{0}]");
+                sb.AppendLine("go");
+                sb.AppendLine("set ansi_nulls on");
+                sb.AppendLine("go");
+                sb.AppendLine("set quoted_identifier on");
+                sb.AppendLine("go");
                 sb.Append("{1}");
-                sb.AppendLine("GO");
+                sb.AppendLine("go");
 
                 return sb.ToString();
             }
