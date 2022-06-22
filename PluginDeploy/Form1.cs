@@ -26,7 +26,7 @@ namespace PluginDeploy
 
         public Form1()
         {
-            Settings= new SettingsManager();
+            Settings = new SettingsManager();
 
             InitializeComponent();
 
@@ -69,13 +69,13 @@ namespace PluginDeploy
                 DirectoryInfo output = new DirectoryInfo(outputDir);
                 output.DeleteAll();
                 output.Create();
-                output.CreateSubdirectory("bin");
+                //output.CreateSubdirectory("bin");
 
                 foreach (var d in dir.GetDirectories())
                 {
                     if (d.Name.ToLower().StartsWith(prefix) && !d.Name.ToLower().Contains("rdi.service.plugins.example"))
                     {
-                        processDirectory(d);
+                        processDirectory(d, output);
                     }
                 }
 
@@ -91,17 +91,16 @@ namespace PluginDeploy
             }
         }
 
-        private void processDirectory(DirectoryInfo dir)
+        private void processDirectory(DirectoryInfo dir, DirectoryInfo outputDirectory)
         {
+            var pluginDirectory = outputDirectory.CreateSubdirectory(dir.Name);
+
             DirectoryInfo bin = new DirectoryInfo(Path.Combine(dir.FullName, configuration));
             if (bin.Exists)
             {
                 foreach (var f in bin.GetFiles())
                 {
-                    if (f.Name.ToLower().StartsWith(prefix) && f.Name.ToLower() != "rdi.service.plugins.shared.dll")
-                        File.Copy(f.FullName, Path.Combine(Path.Combine(outputDir, "bin"), f.Name), true);
-                    else
-                        File.Copy(f.FullName, Path.Combine(outputDir, f.Name), true);
+                    File.Copy(f.FullName, Path.Combine(pluginDirectory.FullName, f.Name));
                 }
             }
         }
